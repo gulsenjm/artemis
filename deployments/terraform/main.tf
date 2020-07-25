@@ -1,12 +1,22 @@
 module "artemis-deploy" {
-  source  = "fuchicorp/chart/helm"
+  source  = "gulsenjm/chart/helm"
 
   deployment_name        = "artemis"
   deployment_environment = "${var.deployment_environment}"
-  deployment_endpoint    = "${lookup(var.deployment_endpoint, "${var.deployment_environment}")}.${var.google_domain_name}" 
+  deployment_endpoint    = "none" 
   deployment_path        = "artemis"
 
   template_custom_vars  = {     
     deployment_image     = "${var.deployment_image}"    
   }
+}
+
+
+variable "deployment_environment" {
+  default = "dev"
+}
+
+
+variable "deployment_image" {
+  default = "gulsenjm/artemis:master"
 }
